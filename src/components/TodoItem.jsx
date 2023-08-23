@@ -101,7 +101,7 @@ const StyledTaskItem = styled.div`
   }
 `;
 
-const TodoItem = ({ todo, onSave, onToggleDone, onChangeMode }) => {
+const TodoItem = ({ todo, onSave, onToggleDone, onChangeMode, onDelete }) => {
   function handleKeyDown(event) {
     if (event.key === 'Enter') {
       onSave?.({ id: todo.id, title: event.target.value });
@@ -138,7 +138,12 @@ const TodoItem = ({ todo, onSave, onToggleDone, onChangeMode }) => {
         />
       </div>
       <div className="task-item-action ">
-        <button className="btn-reset btn-destroy icon"></button>
+        <button
+          className="btn-reset btn-destroy icon"
+          onClick={() => {
+            onDelete?.(todo.id);
+          }}
+        ></button>
       </div>
     </StyledTaskItem>
   );
