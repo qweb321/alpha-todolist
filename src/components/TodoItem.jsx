@@ -102,6 +102,16 @@ const StyledTaskItem = styled.div`
 `;
 
 const TodoItem = ({ todo, onSave, onToggleDone, onChangeMode }) => {
+  function handleKeyDown(event) {
+    if (event.key === 'Enter') {
+      onSave?.({ id: todo.id, title: event.target.value });
+    }
+
+    if (event.key === 'Escape') {
+      onChangeMode?.({ id: todo.id, isEdit: false });
+    }
+  }
+
   return (
     <StyledTaskItem
       className={clsx('', { done: todo.isDone, edit: todo.isEdit })}
@@ -118,11 +128,14 @@ const TodoItem = ({ todo, onSave, onToggleDone, onChangeMode }) => {
         className="task-item-body"
         onDoubleClick={(e) => {
           onChangeMode?.({ id: todo.id, isEdit: true });
-          console.log(todo);
         }}
       >
         <span className="task-item-body-text">{todo.title}</span>
-        <input className="task-item-body-input" value={todo.title} />
+        <input
+          className="task-item-body-input"
+          defaultValue={todo.title}
+          onKeyDown={handleKeyDown}
+        />
       </div>
       <div className="task-item-action ">
         <button className="btn-reset btn-destroy icon"></button>
