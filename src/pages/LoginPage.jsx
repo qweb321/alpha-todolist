@@ -7,12 +7,14 @@ import {
 import { ACLogoIcon } from 'assets/images';
 import { AuthInput } from 'components';
 import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { login } from '../api/auth';
 import Swal from 'sweetalert2';
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleClick = async () => {
     if (username.length === 0 || password.length === 0) {
@@ -33,6 +35,7 @@ const LoginPage = () => {
     if (success) {
       localStorage.setItem('authToken', authToken);
       showWindow('success', '登入成功！');
+      navigate('/todo');
       return;
     }
 
