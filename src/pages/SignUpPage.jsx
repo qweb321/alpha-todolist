@@ -46,7 +46,7 @@ const SignUpPage = () => {
     if (success) {
       localStorage.setItem('authToken', authToken);
       showWindow('success', '註冊成功！');
-      navigate('/todo');
+      navigate('/todos');
       return;
     }
 

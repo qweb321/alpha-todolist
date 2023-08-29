@@ -25,7 +25,7 @@ const LoginPage = () => {
       }
       const result = await checkPermission(authToken);
       if (result) {
-        navigate('/todo');
+        navigate('/todos');
       }
     };
 
@@ -51,7 +51,7 @@ const LoginPage = () => {
     if (success) {
       localStorage.setItem('authToken', authToken);
       showWindow('success', '登入成功！');
-      navigate('/todo');
+      navigate('/todos');
       return;
     }
 
