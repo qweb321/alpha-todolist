@@ -7,8 +7,8 @@ import {
 import { ACLogoIcon } from 'assets/images';
 import { AuthInput } from 'components';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import { register } from '../api/auth';
+import { useState, useEffect } from 'react';
+import { register, checkPermission } from '../api/auth';
 import Swal from 'sweetalert2';
 
 const SignUpPage = () => {
@@ -90,7 +90,9 @@ const SignUpPage = () => {
         />
       </AuthInputContainer>
       <AuthButton onClick={handleClick}>註冊</AuthButton>
-      <AuthLinkText>取消</AuthLinkText>
+      <Link to="/login">
+        <AuthLinkText>取消</AuthLinkText>
+      </Link>
     </AuthContainer>
   );
 };
