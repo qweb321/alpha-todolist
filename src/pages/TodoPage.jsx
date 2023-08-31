@@ -9,20 +9,20 @@ const TodoPage = () => {
   const [todos, setTodos] = useState([]);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const checkTokenIsValid = async () => {
-      const authToken = localStorage.getItem('authToken');
-      if (!authToken) {
-        navigate('/login');
-      }
-      const result = await checkPermission(authToken);
-      if (!result) {
-        navigate('/login');
-      }
-    };
+  // useEffect(() => {
+  //   const checkTokenIsValid = async () => {
+  //     const authToken = localStorage.getItem('authToken');
+  //     if (!authToken) {
+  //       navigate('/login');
+  //     }
+  //     const result = await checkPermission(authToken);
+  //     if (!result) {
+  //       navigate('/login');
+  //     }
+  //   };
 
-    checkTokenIsValid();
-  }, [navigate]);
+  //   checkTokenIsValid();
+  // }, [navigate]);
 
   function handleChange(value) {
     setInputValue(value);

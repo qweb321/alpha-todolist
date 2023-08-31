@@ -1,6 +1,6 @@
 import { checkPermission, login, register } from 'api/auth';
 import { createContext, useContext, useEffect, useState } from 'react';
-import * as jwt from 'jsonwebtoken';
+import * as jose from 'jose';
 import { useLocation } from 'react-router-dom';
 
 const defaultAuthContext = {
@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
       const result = await checkPermission(authToken);
       if (result) {
         setIsAuthenticated(true);
-        const tempPayload = jwt.decode(authToken);
+        const tempPayload = jose.decodeJwt(authToken);
         setPayload(tempPayload);
       } else {
         setIsAuthenticated(false);
@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }) => {
   return (
     <AuthProvider
       value={{
-        isAuthenticated: false,
+        isAuthenticated,
         currentMember: payload && {
           id: payload.sub,
           name: payload.name,
@@ -53,7 +53,7 @@ export const AuthProvider = ({ children }) => {
             email: data.email,
             password: data.password,
           });
-          const tempPayload = jwt.decode(authToken);
+          const tempPayload = jose.decodeJwt(authToken);
           if (tempPayload) {
             setPayload(tempPayload);
             setIsAuthenticated(true);
@@ -70,7 +70,7 @@ export const AuthProvider = ({ children }) => {
             password: data.password,
           });
 
-          const tempPayload = jwt.decode(authToken);
+          const tempPayload = jose.decodeJwt(authToken);
           if (tempPayload) {
             setPayload(tempPayload);
             setIsAuthenticated(true);
